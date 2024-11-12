@@ -7,17 +7,17 @@ import { Connection } from "src/common/constants/connection";
 export class SongsController implements OnModuleInit{
     constructor(
         private songsService: SongsService,
-        @Inject("CONNECTION")
-        private connection: Connection
+        @Inject('CONNECTION')
+        connection: Connection
     ) {
         console.log('Injected Service:', songsService);
-        console.log("The connection string ", this.connection.CONNECTION_STRING)
+        console.log("The connection string ", connection)
     }
 
     onModuleInit() {
     console.log('SongsController initialized');
-    console.log('SongsService:', this.songsService);
-    console.log('Connection:', this.connection);
+    console.log('SongsService:', this.songsService.getSongs());
+    // console.log('Connection:', this.connection);
   }
     
     @Get()

@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Inject, Module, OnModuleInit } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { SongsController } from './songs.controller';
-import { connection } from 'src/common/constants/connection';
+import { Connection, connection } from 'src/common/constants/connection';
 
 const mockSongsService = {
 findAll() {
@@ -22,7 +22,7 @@ title: "Lasting lover"
   //   }
   // ]
   
-  //value providers implementation
+  // value providers implementation
   // providers: [
   //   {
   //     provide: SongsService,
@@ -30,14 +30,27 @@ title: "Lasting lover"
   //   }
   // ]
 
-  //non class providers that can be injected and used as dependency
+  // non class providers that can be injected and used as dependency
   providers: [
-  SongsService,
+    SongsService,
     {
       provide: "CONNECTION",
       useValue: connection
     }
   ]
-  
 })
-export class SongsModule {}
+export class SongsModule implements OnModuleInit {
+  constructor(
+    @Inject("CONNECTION")
+    private connection: Connection,
+    private songsService: SongsService
+  ) {
+
+  }
+
+  onModuleInit() {
+    console.log("Songs module initialized")
+    // console.log("The connection ", this.connection)
+    // console.log("The service ", this.songsService)
+  }
+}
