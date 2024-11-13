@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 
-@Injectable()
+@Injectable({scope: Scope.REQUEST})
 export class SongsService {
 
     private readonly songs = ["My Dear Melanchony"]
